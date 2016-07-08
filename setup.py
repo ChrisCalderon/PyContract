@@ -1,4 +1,8 @@
 from setuptools import setup
+import json
+
+with open('config.json') as cfg:
+    config = json.load(cfg)
 
 
 def is_http(req):
@@ -21,11 +25,6 @@ with open('requirements.txt') as reqs:
                                         [r.strip() for r in reqs]),
                                  [[],[]])
 
-setup(name='contract',
-      version='1.0dev1',
-      description='Classes for interacting with Ethereum smart contracts.',
-      author='ChrisCalderon',
-      author_email='pythonwiz@protonmail.com',
-      packages=['contract'],
-      install_requires=requirements,
-      dependency_links=links)
+config['install_requires'] = requirements
+config['dependency_links'] = links
+setup(**config)

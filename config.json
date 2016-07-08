@@ -1,0 +1,8 @@
+{
+  "name": "contract",
+  "version": "1.0dev1",
+  "description": "A class for interacting with Ethereum smart contracts.",
+  "packages": ["contract"],
+  "author": "ChrisCalderon",
+  "author_email": "pythonwiz@protonmail.com"
+}
