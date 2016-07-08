@@ -1,3 +1,2 @@
 ethereum
-https://github.com/ChrisCalderon/PyRPCTools/tarball/master#egg=PyRPCTools
-enum34
+https://github.com/ChrisCalderon/PyRPCTools/tarball/master#egg=rpctools

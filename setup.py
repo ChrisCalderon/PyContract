@@ -3,7 +3,7 @@ from setuptools import setup
 with open('requirements.txt') as reqs:
     requirements = filter(None, [r.strip() for r in reqs])
 
-setup(name='PyContract',
+setup(name='contract',
       version='1.0dev1',
       description='Classes for interacting with Ethereum smart contracts.',
       author='ChrisCalderon',
