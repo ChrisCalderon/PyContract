@@ -1,31 +1,36 @@
+"""A class for using Ethereum smart contracts."""
 import re
 import math
 from rpctools import rpc_factory
 from ethereum.abi import ContractTranslator
+from typing import Sequence, Mapping
+
+__version__ = "1.0.rc1"
+__author__ = "Chris Calderon"
+__email__ = "pythonwiz@protonmail.com"
+__license__ = "MIT"
 
 ETH_ADDR = re.compile('^0x[0-9a-fA-F]{40}$')
 MAX_GAS = int(math.pi*1.5*1e6)
 
 
-class ContractError(Exception): pass
+class ContractError(Exception):
+    pass
 
 
 class Contract(object):
-    """A base class for interacting with Ethereum contracts."""
-    def __init__(self, address, interface, rpc_address, sender=None, gas=MAX_GAS):
+    """A class for interacting with Ethereum contracts."""
+
+    def __init__(self, address: str, interface: Sequence[Mapping],
+                 rpc_address: str, sender: str = None, gas: int = MAX_GAS):
         """Create a new Contract instance. Batch requests not supported!
 
-        :param address: The address of the smart contract you want to use.
-        :param interface: The full signature of the smart contract.
-        :param rpc_address: The address of the RPC server for your Ethereum node.
-        :param sender: The address to send from. If None, the default sender for your node is used.
-        :param gas:  The maximum amount of gass to use per transaction/call.
-
-        :type address: str
-        :type interface: dict
-        :type rpc_address: str
-        :type sender: Optional[str]
-        :type gas: int
+        Arguments:
+        address -- The address of the smart contract you want to use.
+        interface -- The full signature of the smart contract.
+        rpc_address -- The address of the RPC server for your Ethereum node.
+        sender -- The address to send from. If None, the default sender for your node is used.
+        gas --  The maximum amount of gas to use per transaction/call.
         """
         err_fmt = 'Invalid {} address, must be 40 digit hex starting with \'0x\': {!r}'
 
@@ -49,6 +54,7 @@ class Contract(object):
 
             def proxy(*args, **kwds):
                 """Calls function {} in contract {}.
+
 
                 If the optional `call` keyword is True, then the result of the function call
                 is decoded into a Python object and returned, otherwise the transaction hash
@@ -82,11 +88,4 @@ class Contract(object):
 
     def _send(self, tx):
         response = self.rpc_client.eth_sendTransaction(tx)
-        self._check_response(response)
         return response['result']
-
-    @staticmethod
-    def _check_response(response):
-        error_msg = 'error response from RPC server: {}'
-        if 'error' in response:
-            raise ContractError(error_msg.format(response))

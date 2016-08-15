@@ -1,2 +1,2 @@
-ethereum
-https://github.com/ChrisCalderon/PyRPCTools/tarball/master#egg=rpctools
+https://github.com/ethereum/pyethereum/archive/develop.tar.gz#egg=ethereum
+https://github.com/ChrisCalderon/rpctools/archive/master.tar.gz#egg=rpctools
